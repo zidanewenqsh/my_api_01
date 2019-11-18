@@ -34,3 +34,7 @@ s = fourier_series(x**2, (x, -pi, pi))
 s1 = s.shiftx(1).truncate()
 print(s1)
 # -4*cos(x + 1) + cos(2*x + 2) + pi**2/3
+print('----------')
+s = fourier_series(x, (x, -pi, pi))
+s1 = s.truncate()
+print(s1)
