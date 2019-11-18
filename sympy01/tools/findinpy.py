@@ -12,9 +12,9 @@ dir_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 print('上级目录绝对路径:',dir_path)
 
 # searchpath = r"D:\PycharmProjects"
-searchpath = r"D:\PycharmProjects"
+searchpath = r"D:\PycharmProjects\my_api_01\sympy01"
 
-searchword = "sympy01"
+searchword = "summation"
 
 
 for root,dirs,files in os.walk(searchpath):
