@@ -30,3 +30,22 @@ f1 = integrate(x**y*exp(-x), (x, 0, oo))
 print(f1)
 print(gamma(y+1))
 print(re(y))
+
+print("------------------------")
+u,a = symbols('u a')
+expr = 1/(u**2+a**2)**2
+expr = 1/sec(u)**2
+f1 = integrate(expr,u)
+print(f1)
+expr1 = 1/(u**2+a**2)
+expr2 = ((u*a)/(a**2+u**2))/(2*a**3)
+f2 = diff(expr1,u)
+f3 = diff(expr2,u)
+print(f2)
+print(f3)
+print("------------------------")
+x = symbols('x')
+expr = pi*(E-exp(x))**2
+# expr = pi*((E*x-E)**2-(exp(x)-E)**2)
+f1 = integrate(expr,(x,0,1))
+print(f1)
