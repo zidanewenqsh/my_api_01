@@ -1,1 +1,5 @@
-*.pyc
+/.git/
+/.idea/
+/.svn/
+/datas/
+/saves/
