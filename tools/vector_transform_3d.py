@@ -156,7 +156,7 @@ def scalling_3d(a, sx=1, sy=1, sz=1):
     return result[:, :-1]
 
 
-def rotate_x_3d(a, t):
+def rotate_x_3d(a, t, n=1):
     '''
     向量绕x坐标轴旋转
     :param a:
@@ -166,10 +166,10 @@ def rotate_x_3d(a, t):
     m = np.eye(4)
     m = np.expand_dims(m, axis=0)
     m = m.repeat(a.shape[0], axis=0)
-    m[:, 1, 1] = cos(t)
-    m[:, 1, 2] = sin(t)
-    m[:, 2, 1] = -sin(t)
-    m[:, 2, 2] = cos(t)
+    m[:, 1, 1] = cos(n*t)
+    m[:, 1, 2] = sin(n*t)
+    m[:, 2, 1] = -sin(n*t)
+    m[:, 2, 2] = cos(n*t)
 
     a = np.concatenate((a, np.ones((a.shape[0], 1))), axis=1)
     a = np.expand_dims(a, axis=-2)
@@ -177,7 +177,7 @@ def rotate_x_3d(a, t):
     return np.squeeze(result, axis=-2)[..., :-1]
 
 
-def rotate_y_3d(a, t):
+def rotate_y_3d(a, t, n=1):
     '''
     向量绕y坐标轴旋转
     :param a:
@@ -187,10 +187,10 @@ def rotate_y_3d(a, t):
     m = np.eye(4)
     m = np.expand_dims(m, axis=0)
     m = m.repeat(a.shape[0], axis=0)
-    m[:, 0, 0] = cos(t)
-    m[:, 0, 2] = -sin(t)
-    m[:, 2, 0] = sin(t)
-    m[:, 2, 2] = cos(t)
+    m[:, 0, 0] = cos(n*t)
+    m[:, 0, 2] = -sin(n*t)
+    m[:, 2, 0] = sin(n*t)
+    m[:, 2, 2] = cos(n*t)
 
     a = np.concatenate((a, np.ones((a.shape[0], 1))), axis=1)
     a = np.expand_dims(a, axis=-2)
@@ -198,7 +198,7 @@ def rotate_y_3d(a, t):
     return np.squeeze(result, axis=-2)[..., :-1]
 
 
-def rotate_z_3d(a, t):
+def rotate_z_3d(a, t, n=1):
     '''
     向量绕z坐标轴旋转
     :param a:
@@ -209,10 +209,10 @@ def rotate_z_3d(a, t):
     m = np.expand_dims(m, axis=0)
     m = m.repeat(a.shape[0], axis=0)
 
-    m[:, 0, 0] = cos(t)
-    m[:, 0, 1] = sin(t)
-    m[:, 1, 0] = -sin(t)
-    m[:, 1, 1] = cos(t)
+    m[:, 0, 0] = cos(n*t)
+    m[:, 0, 1] = sin(n*t)
+    m[:, 1, 0] = -sin(n*t)
+    m[:, 1, 1] = cos(n*t)
 
     a = np.concatenate((a, np.ones((a.shape[0], 1))), axis=1)
     a = np.expand_dims(a, axis=-2)
@@ -447,9 +447,16 @@ if __name__ == '__main__':
     print(b)
     d = np.concatenate((a, p, b), axis=0)
     print(d)
-    print(get_angle(a, p), get_angle(p, b))
+    print(get_angle(a, p), get_angle(p, b), get_angle(a, b))
     e = get_angle(a, p)
     print(e.shape)
     print(e)
     print(get_axis_angle(a))
     print(get_face_angle(a))
+    print(a)
+    a1 = rotate_x_3d(a, pi/3, n=1)
+    print(a1)
+    a2 = rotate_x_3d(a, pi/3, n=2)
+    print(a2)
+    a1_ = rotate_x_3d(a1, pi/3, n=1)
+    print(a1_)
