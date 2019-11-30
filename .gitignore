@@ -5,6 +5,7 @@
 /saves/
 *.txt
 *.npy
+*.npz
 *.bin
 
 # Byte-compiled / optimized / DLL files

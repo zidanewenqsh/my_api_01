@@ -1,4 +1,9 @@
-from tool import *
+import numpy as np
+'''
+tofile()将数组中的数据以二进制格式写进文件
+tofile()输出的数据不保存数组形状和元素类型等信息
+fromfile()函数读回数据时需要用户指定元素类型，并对数组的形状进行适当的修改'''
+
 a = np.arange(0,12)
 a.shape = 3,4
 print(a)

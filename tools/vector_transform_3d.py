@@ -11,6 +11,7 @@ def get_norm_2(a: np.ndarray, b: np.ndarray):
     else:
         raise ValueError
 
+
 # def get_norm_0(a: np.ndarray):
 #     return np.sum(a ** 2, axis=-1, keepdims=True) ** (0.5) + 1e-12
 def normalize_vector(a: np.ndarray):
@@ -166,10 +167,11 @@ def rotate_x_3d(a, t, n=1):
     m = np.eye(4)
     m = np.expand_dims(m, axis=0)
     m = m.repeat(a.shape[0], axis=0)
-    m[:, 1, 1] = cos(n*t)
-    m[:, 1, 2] = sin(n*t)
-    m[:, 2, 1] = -sin(n*t)
-    m[:, 2, 2] = cos(n*t)
+    # print(m.shape, t)
+    m[:, 1, 1] = cos(n * t)
+    m[:, 1, 2] = sin(n * t)
+    m[:, 2, 1] = -sin(n * t)
+    m[:, 2, 2] = cos(n * t)
 
     a = np.concatenate((a, np.ones((a.shape[0], 1))), axis=1)
     a = np.expand_dims(a, axis=-2)
@@ -187,10 +189,10 @@ def rotate_y_3d(a, t, n=1):
     m = np.eye(4)
     m = np.expand_dims(m, axis=0)
     m = m.repeat(a.shape[0], axis=0)
-    m[:, 0, 0] = cos(n*t)
-    m[:, 0, 2] = -sin(n*t)
-    m[:, 2, 0] = sin(n*t)
-    m[:, 2, 2] = cos(n*t)
+    m[:, 0, 0] = cos(n * t)
+    m[:, 0, 2] = -sin(n * t)
+    m[:, 2, 0] = sin(n * t)
+    m[:, 2, 2] = cos(n * t)
 
     a = np.concatenate((a, np.ones((a.shape[0], 1))), axis=1)
     a = np.expand_dims(a, axis=-2)
@@ -209,10 +211,10 @@ def rotate_z_3d(a, t, n=1):
     m = np.expand_dims(m, axis=0)
     m = m.repeat(a.shape[0], axis=0)
 
-    m[:, 0, 0] = cos(n*t)
-    m[:, 0, 1] = sin(n*t)
-    m[:, 1, 0] = -sin(n*t)
-    m[:, 1, 1] = cos(n*t)
+    m[:, 0, 0] = cos(n * t)
+    m[:, 0, 1] = sin(n * t)
+    m[:, 1, 0] = -sin(n * t)
+    m[:, 1, 1] = cos(n * t)
 
     a = np.concatenate((a, np.ones((a.shape[0], 1))), axis=1)
     a = np.expand_dims(a, axis=-2)
@@ -220,10 +222,11 @@ def rotate_z_3d(a, t, n=1):
     return np.squeeze(result, axis=-2)[..., :-1]
 
 
-def rotate_to_x(a):
+def rotate_to_x(a, toFace=False):
     '''
     将向量旋转到x坐标轴
     先沿x轴转到xoz平面，再沿y轴转到x轴
+    如果toFace为True, 只算到xoz平面的转角
     :param a:
     :return:
     '''
@@ -231,21 +234,41 @@ def rotate_to_x(a):
     y = a[..., 1]
     z = a[..., 2]
     t = z / get_norm_2(y, z)
+
     t1 = np.arccos(t)
+    m1 = y < 0
+
+    t1[m1] = 2 * pi - t1[m1]
+    # if y<0:
+    #     t1 = 2*pi - t1
+    # print("t1", t1 / pi)
     a = rotate_x_3d(a, t1)
+    # print("aa", a)
+    if toFace:
+        return a, t1
+
     x = a[..., 0]
     # y = a[..., 1]
     z = a[..., 2]
     t = x / get_norm_2(x, z)
+
     t2 = np.arccos(t)
+    m2 = z < 0
+    t2[m2] = 2 * pi - t2[m2]
+    # if z<0:
+    #     t2 = 2*pi - t2
+
+    # print("t2", t2 / pi)
     a = rotate_y_3d(a, t2)
+    # print("aa2", a)
     return a, t1, t2
 
 
-def rotate_to_y(a):
+def rotate_to_y(a, toFace=False):
     '''
     将向量旋转到y坐标轴
     先沿y轴转到xoy平面，再沿z轴转到y轴
+    如果toFace为True, 只算到xoy平面的转角
     :param a:
     :return:
     '''
@@ -254,20 +277,32 @@ def rotate_to_y(a):
     z = a[..., 2]
     t = x / get_norm_2(x, z)
     t1 = np.arccos(t)
+    m1 = z < 0
+    t1[m1] = 2 * pi - t1[m1]
+    # if z<0:
+    #     t1 = 2*pi - t1
     a = rotate_y_3d(a, t1)
+    if toFace:
+        return a, t1
+
     x = a[..., 0]
     y = a[..., 1]
     # z = a[..., 2]
     t = y / get_norm_2(x, y)
     t2 = np.arccos(t)
+    m2 = x < 0
+    t2[m2] = 2 * pi - t2[m2]
+    # if x<0:
+    #     t2 = 2*pi - t2
     a = rotate_z_3d(a, t2)
     return a, t1, t2
 
 
-def rotate_to_z(a):
+def rotate_to_z(a, toFace=False):
     '''
     将向量旋转到z坐标轴
     先沿z轴转到yoz平面，再沿x轴转到z轴
+    如果toFace为True, 只算到yoz平面的转角
     :param a:
     :return:
     '''
@@ -276,12 +311,23 @@ def rotate_to_z(a):
     # z = a[..., 2]
     t = y / get_norm_2(x, y)
     t1 = np.arccos(t)
+    m1 = x < 0
+    t1[m1] = 2 * pi - t1[m1]
+    # if x<0:
+    #     t1 = 2*pi - t1
     a = rotate_z_3d(a, t1)
+    if toFace:
+        return a, t1
+
     # x = a[..., 0]
     y = a[..., 1]
     z = a[..., 2]
     t = z / get_norm_2(y, z)
     t2 = np.arccos(t)
+    m2 = y < 0
+    t2[m2] = 2 * pi - t2[m2]
+    # if y<0:
+    #     t2 = 2*pi - t2
     a = rotate_x_3d(a, t2)
     return a, t1, t2
 
@@ -349,7 +395,7 @@ def rotate_around(a, p, t):
     return result
 
 
-def plot_3d(a):
+def plot_3d(a, xlim=(0,5), ylim=(0,5), zlim=(0,5)):
     x = a[:, 0]
     y = a[:, 1]
     z = a[:, 2]
@@ -363,13 +409,13 @@ def plot_3d(a):
     ax.set_zlabel('Z', fontdict={'size': 15, 'color': 'red'})
     ax.set_ylabel('Y', fontdict={'size': 15, 'color': 'red'})
     ax.set_xlabel('X', fontdict={'size': 15, 'color': 'red'})
-    ax.set_xlim3d(-1, 5)
-    ax.set_ylim3d(-1, 5)
-    ax.set_zlim3d(-1, 5)
+    ax.set_xlim3d(*xlim)
+    ax.set_ylim3d(*ylim)
+    ax.set_zlim3d(*zlim)
     plt.show()
 
 
-def plotvecter_3d(a: np.ndarray):
+def plotvecter_3d(a: np.ndarray, xlim=(0,5), ylim=(0,5), zlim=(0,5)):
     if a.ndim == 2 and a.shape[-1] >= 3:
         a = np.expand_dims(a, axis=1)
         a = np.concatenate((np.zeros_like(a), a), axis=1)
@@ -388,9 +434,9 @@ def plotvecter_3d(a: np.ndarray):
         ax.set_zlabel('Z', fontdict={'size': 15, 'color': 'red'})
         ax.set_ylabel('Y', fontdict={'size': 15, 'color': 'red'})
         ax.set_xlabel('X', fontdict={'size': 15, 'color': 'red'})
-        ax.set_xlim3d(0, 5)
-        ax.set_ylim3d(0, 5)
-        ax.set_zlim3d(0, 5)
+        ax.set_xlim3d(*xlim)
+        ax.set_ylim3d(*ylim)
+        ax.set_zlim3d(*zlim)
         plt.show()
     else:
         raise ValueError
@@ -434,12 +480,12 @@ if __name__ == '__main__':
     # print(c)
     # print(m)
     # print(m.T)
-    a6, t1, t2 = rotate_to_z(a)
-    print(a6)
-    print(t1)
-    print(t2)
-    a7 = rotate_from_z(a6, t1, t2)
-    print(a7)
+    # a6, t1, t2 = rotate_to_z(a)
+    # print(a6)
+    # print(t1)
+    # print(t2)
+    # a7 = rotate_from_z(a6, t1, t2)
+    # print(a7)
     a = np.array([[1, 2, 3], [3, 3, 1]])
     p = np.array([[1, 1, 1]])
     t = pi / 2
@@ -454,9 +500,27 @@ if __name__ == '__main__':
     print(get_axis_angle(a))
     print(get_face_angle(a))
     print(a)
-    a1 = rotate_x_3d(a, pi/3, n=1)
+    a1 = rotate_x_3d(a, pi / 3, n=1)
     print(a1)
-    a2 = rotate_x_3d(a, pi/3, n=2)
+    a2 = rotate_x_3d(a, pi / 3, n=2)
     print(a2)
-    a1_ = rotate_x_3d(a1, pi/3, n=1)
+    a1_ = rotate_x_3d(a1, pi / 3, n=1)
     print(a1_)
+    # a = np.array([[8.52, -0.75, 10.74]])
+    # a = np.array([[-0,-3,-3]])
+    a = np.random.randn(10,3)
+    a = np.array([[ 6.79, -2.5,  10.67]])
+    print(a.dtype)
+    # print(a)
+    a2,t1,t2 = rotate_to_x(a)
+    print(a2)
+    print(np.arccos(-1))
+    aa = rotate_to_x(a,True)
+    print(aa)
+
+    # a3 = rotate_x_3d(a, t1)
+    # print("a3", a2.shape)
+    # print(a3)
+    # a4 = rotate_y_3d(a3, t2)
+    # print("a4", a4.shape)
+    # print(a4)
