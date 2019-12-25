@@ -517,7 +517,7 @@ if __name__ == '__main__':
     print(np.arccos(-1))
     aa = rotate_to_x(a,True)
     print(aa)
-
+    print(dir())
     # a3 = rotate_x_3d(a, t1)
     # print("a3", a2.shape)
     # print(a3)
