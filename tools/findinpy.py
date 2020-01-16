@@ -12,9 +12,9 @@ dir_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 print('上级目录绝对路径:',dir_path)
 
 # searchpath = r"D:\PycharmProjects"
-searchpath = r"D:\PycharmProjects\pymol_test_01"
+searchpath = r"G:\liev备份\PycharmProjects"
 
-searchword = "rotate3d_demo"
+searchword = "configparser"
 
 
 for root,dirs,files in os.walk(searchpath):
