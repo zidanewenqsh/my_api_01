@@ -1,4 +1,4 @@
-from tools import *
+from tool import *
 from sympy import *
 
 y = x**2+1

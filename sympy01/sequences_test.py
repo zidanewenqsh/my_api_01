@@ -1,4 +1,4 @@
-# from tools import *
+# from tool import *
 import sympy
 from sympy import *
 # from sympy import sequence,SeqFormula,SeqPer

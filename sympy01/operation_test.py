@@ -1,4 +1,4 @@
-from tools import *
+from tool import *
 from sympy import *
 
 n = symbols('n')

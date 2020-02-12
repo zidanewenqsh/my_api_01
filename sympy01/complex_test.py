@@ -1,4 +1,4 @@
-from tools import *
+from tool import *
 from sympy import *
 
 a = cos(x) + I * sin(x)

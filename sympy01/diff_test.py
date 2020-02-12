@@ -1,6 +1,6 @@
-from tools import *
+from tool import *
 from sympy import *
-# from sympy01.abc import x,y,z
+from sympy.abc import x,y,z
 '''
 求导'''
 z = exp(x)+x**2

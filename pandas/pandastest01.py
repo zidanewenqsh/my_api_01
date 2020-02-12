@@ -5,9 +5,16 @@ s = pd.Series([1,3,5,np.nan,6,8])
 print(s)
 dates = pd.date_range('20130101', periods=6)
 print(dates)
+
 df = pd.DataFrame(np.random.randn(6,4), index=dates, columns=list('ABCD'))
-# df = pd.DataFrame(np.random.randn(6,4), index=dates, columns=[1,2,3,4])
+# df = pd.DataFrame(np.random.randn(6,4), index=np.arange(6), columns=[1,2,3,4])
 print(df)
+
+# 删除数据
+# df = df.drop([3],axis=0)
+# print(df)
+
+# exit()
 df2 = pd.DataFrame({ 'A' : 1., 'B' : pd.Timestamp('20130102'),'C' : pd.Series(1,index=list(range(4)),dtype='float32'),
  'D' : np.array([3] * 4,dtype='int32'), 'E' : pd.Categorical(["test","train","test","train"]),'F' : 'foo' })
 print(df2)
@@ -16,7 +23,9 @@ print(df.head(2))
 print(df.tail(2))
 print(df.index)
 print(df.columns)
+
 print(df.values)
+# exit()
 print(df.describe())
 print(df.T)
 
@@ -29,10 +38,19 @@ print("***********************")
 print(df['D'])
 print(df[0:3])
 # print(df['2013-01-02'])#KeyError: '2013-01-02'
-print(df['2013-01-02':])
+print("***********************++++++++++++++")
+# print(df['2013-01-02'])
+print(df['2013-01-02':"2013-01-03"])
+print(df.loc['2013-01-02','A'])
+print(df.iloc[1,2])
+print(df.A) # 英文列名可以这么引用
+
+exit()
 # print(df['A':'C']) #ValueError: Given date string not likely a datetime.
 print(df.loc[dates[0]])
 print(df.loc[:,['A','B']])
+
+exit()
 print(df.loc['20130102':'20130104',['A','C']])
 print("***********************")
 print(df.loc['20130102',['A','B']])

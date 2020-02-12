@@ -1,3 +1,9 @@
+/mySpider/
+/demo/
+/docx/
+/scrapy*/
+*.doc
+*.docx
 /.git/
 /.idea/
 /.svn/
@@ -86,7 +92,7 @@ instance/
 .webassets-cache
 
 # Scrapy stuff:
-.scrapy
+#.scrapy_demo
 
 # Sphinx documentation
 docs/_build/

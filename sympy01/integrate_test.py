@@ -1,6 +1,6 @@
-from tools import *
+from tool import *
 from sympy import *
-
+x,y,z = symbols('x y z')
 t = Symbol('t')
 f = 2 * t
 #不定积分

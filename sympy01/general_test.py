@@ -1,4 +1,4 @@
-from tools import *
+from tool import *
 from sympy import *
 #误差函数
 a = erf(0.5).evalf(n=10)

@@ -1,4 +1,4 @@
-from tools import *
+from tool import *
 from sympy import *
 
 # f = Piecewise((x,x>0),(x,x<pi),(-x,x<0),(-x,x>-pi))

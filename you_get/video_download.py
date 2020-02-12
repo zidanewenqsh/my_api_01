@@ -14,13 +14,14 @@ def download(url, path):
     you_get.main()
 
 
+
 if __name__ == '__main__':
     # 视频网站的地址
 
-    url = 'https://www.bilibili.com/video/av77881777?from=search&seid=13958931206012048776'
+    url = 'https://www.bilibili.com/video/av82643703?from=search&seid=12161001519466991232'
 
     # 视频输出的位置
 
-    path = 'D:/test'
+    path = 'D:\PycharmProjects\my_api_01\saves'
 
     download(url, path)

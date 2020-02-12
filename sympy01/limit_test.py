@@ -1,8 +1,8 @@
-from tools import *
+from tool import *
 from sympy import *
 '''
 求极限'''
-
+x = Symbol('x')
 f1 = sin(x) / x
 l1 = limit(f1, x, 0)
 f2 = (1 + 1 / x) ** x
