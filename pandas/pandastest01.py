@@ -10,6 +10,7 @@ df = pd.DataFrame(np.random.randn(6,4), index=dates, columns=list('ABCD'))
 # df = pd.DataFrame(np.random.randn(6,4), index=np.arange(6), columns=[1,2,3,4])
 print(df)
 
+
 # 删除数据
 # df = df.drop([3],axis=0)
 # print(df)
@@ -25,7 +26,7 @@ print(df.index)
 print(df.columns)
 
 print(df.values)
-# exit()
+exit()
 print(df.describe())
 print(df.T)
 
@@ -45,12 +46,12 @@ print(df.loc['2013-01-02','A'])
 print(df.iloc[1,2])
 print(df.A) # 英文列名可以这么引用
 
-exit()
+
 # print(df['A':'C']) #ValueError: Given date string not likely a datetime.
 print(df.loc[dates[0]])
 print(df.loc[:,['A','B']])
 
-exit()
+
 print(df.loc['20130102':'20130104',['A','C']])
 print("***********************")
 print(df.loc['20130102',['A','B']])

@@ -30,7 +30,7 @@ f1 = integrate(x**y*exp(-x), (x, 0, oo))
 print(f1)
 print(gamma(y+1))
 print(re(y))
-
+exit()
 print("------------------------")
 u,a = symbols('u a')
 expr = 1/(u**2+a**2)**2

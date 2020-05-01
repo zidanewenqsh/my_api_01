@@ -10,7 +10,7 @@ a = factorial(5)
 print(a)
 '''
 evalf'''
-a = sympy.Symbol('a')
+a = Symbol('a')
 print((1 / a).evalf(subs={a: 3}, n=10))  # 值代换，保留小数位数
 
 # 欧拉公式和复数

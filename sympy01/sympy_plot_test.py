@@ -6,6 +6,6 @@ plot(expr,(x,-5,5))
 init_printing()
 a = Integral(sqrt(1/x),x)
 print(a)
-b = pretty(a)
+b = pretty(expr)
 print(b)
-pprint(a)#效果等同于pretty
+pprint(b)#效果等同于pretty

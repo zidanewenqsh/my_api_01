@@ -415,7 +415,7 @@ def plot_3d(a, xlim=(0,5), ylim=(0,5), zlim=(0,5)):
     plt.show()
 
 
-def plotvecter_3d(a: np.ndarray, xlim=(0,5), ylim=(0,5), zlim=(0,5)):
+def plotvector_3d(a: np.ndarray, xlim=(0,5), ylim=(0,5), zlim=(0,5)):
     if a.ndim == 2 and a.shape[-1] >= 3:
         a = np.expand_dims(a, axis=1)
         a = np.concatenate((np.zeros_like(a), a), axis=1)

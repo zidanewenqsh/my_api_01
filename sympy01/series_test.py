@@ -1,6 +1,6 @@
 from tool import *
 from sympy import *
-
+x = symbols("x")
 # 级数展开
 tmp = series(exp(I * x), x, 0, 10)
 print(tmp)
